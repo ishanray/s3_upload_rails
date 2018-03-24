@@ -1,0 +1,42 @@
+<%= form_with(
+  model: truck,
+  local: true,
+  data: {
+    url: signed_upload_url.url,
+    fields: signed_upload_url.fields,
+    host: URI.parse(signed_upload_url.url).host
+  }
+) do |form| %>
+  <% if truck.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck.errors.count, "error") %> prohibited this truck from being saved:</h2>
+
+      <ul>
+      <% truck.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tonnage %>
+    <%= form.text_field :tonnage, id: :truck_tonnage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crew %>
+    <%= form.text_field :crew, id: :truck_crew %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image,
+      id: :truck_image
+    %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
